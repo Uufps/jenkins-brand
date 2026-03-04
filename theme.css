@@ -1,149 +1,45 @@
-/* ================================
-   cafelabs-ci Jenkins Branding CSS
-   适配新版 Jenkins UI（含你截图这种左侧品牌区）
-   ================================ */
+/* ===== cafelabs-ci branding for current Jenkins DOM ===== */
 
-/* ---- 可配置变量 ---- */
 :root {
-  --cafe-brand-text: "cafelabs-ci";
-  --cafe-brand-color: #ffffff;
-  --cafe-brand-size: 28px;
-  --cafe-brand-weight: 700;
+  --brand-text: "cafelabs-ci";
+  --brand-color: #ffffff;
 }
 
-/* ---- 基础：确认样式已加载（可删）----
-html { outline: 0 !important; }
-*/
-
-/* 1) 左上角品牌区域强制替换文字
-   你截图里是“头像 + Jenkins”，这里把原文字隐藏，插入新文字 */
-#jenkins-home-link,
-a#jenkins-home-link,
-a[aria-label="Dashboard"],
-a[href="/"],
-a[href="/jenkins/"],
-.jenkins-logo,
-.jenkins-branding,
-.jenkins-app-bar__title {
+/* 1) 精准命中你截图里的 logo 链接容器 */
+a.app-jenkins-logo {
   position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  text-decoration: none !important;
 }
 
-/* 隐藏品牌区域内默认文本节点（避免还显示 Jenkins） */
-#jenkins-home-link span,
-a#jenkins-home-link span,
-a[aria-label="Dashboard"] span,
-a[href="/"] span,
-a[href="/jenkins/"] span,
-.jenkins-app-bar__title span,
-.jenkins-logo__text {
+/* 2) 隐藏原 Jenkins 文本（你截图里的 span.jenkins-mobile-hide） */
+a.app-jenkins-logo span.jenkins-mobile-hide {
   font-size: 0 !important;
-  line-height: 0 !important;
   color: transparent !important;
-}
-
-/* 某些版本把文字放在可访问性类里 */
-.jenkins-visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
+  width: 0 !important;
   overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-/* 在常见品牌容器后追加 cafelabs-ci 文本 */
-#jenkins-home-link::after,
-a#jenkins-home-link::after,
-a[aria-label="Dashboard"]::after,
-a[href="/"]::after,
-a[href="/jenkins/"]::after,
-.jenkins-app-bar__title::after {
-  content: var(--cafe-brand-text) !important;
-  color: var(--cafe-brand-color) !important;
-  font-size: var(--cafe-brand-size) !important;
-  font-weight: var(--cafe-brand-weight) !important;
-  letter-spacing: 0.2px !important;
-  line-height: 1 !important;
-  white-space: nowrap !important;
   display: inline-block !important;
-  vertical-align: middle !important;
-  margin-left: 6px !important;
-  opacity: 1 !important;
 }
 
-/* 2) 保留左上角头像图标可见（你现在头像已经替换成功） */
-#jenkins-head-icon,
-.jenkins-logo img,
-img[src*="jenkins-headshot"],
-img[src*="jenkins.png"] {
-  opacity: 1 !important;
-  width: 28px !important;
-  height: 28px !important;
+/* 3) 注入新品牌文字 */
+a.app-jenkins-logo::after {
+  content: var(--brand-text) !important;
+  color: var(--brand-color) !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.2px !important;
+  white-space: nowrap !important;
+  margin-left: 4px !important;
+}
+
+/* 4) logo 图标尺寸（可选） */
+#jenkins-head-icon {
+  width: 26px !important;
+  height: 26px !important;
   object-fit: contain !important;
 }
 
-/* 3) 防止某些主题把新文字挤没 */
-#jenkins-home-link,
-a#jenkins-home-link,
-a[aria-label="Dashboard"] {
-  display: inline-flex !important;
-  align-items: center !important;
-  min-width: 180px !important;
-}
-
-/* 4) 登录页标题替换（如果出现 Jenkins 标题） */
-#login h1,
-.login h1 {
-  font-size: 0 !important;
-  line-height: 0 !important;
-}
-#login h1::after,
-.login h1::after {
-  content: var(--cafe-brand-text) !important;
-  font-size: 30px !important;
-  line-height: 1.2 !important;
-  font-weight: 700 !important;
-  color: #111 !important;
-}
-
-/* 5) 浏览器标签图标/标题由 favicon+js 控制，这里做轻微兜底（非必须） */
-.page-head__title,
-h1 {
-  letter-spacing: 0.1px;
-}
-
-/* 6) 可选：页脚弱化 Jenkins 原字样 */
-#page-footer,
-.page-footer {
-  opacity: 0.9 !important;
-}
-
-/* 7) 如果左上角仍显示“Jenkins”，启用这个强制覆盖块（默认开启） */
-a[aria-label="Dashboard"] *:not(img):not(svg),
-#jenkins-home-link *:not(img):not(svg),
-.jenkins-app-bar__title *:not(img):not(svg) {
-  color: transparent !important;
-}
-
-/* 再次插入文本（双保险） */
-a[aria-label="Dashboard"]::before,
-#jenkins-home-link::before {
-  content: var(--cafe-brand-text) !important;
-  color: var(--cafe-brand-color) !important;
-  font-size: var(--cafe-brand-size) !important;
-  font-weight: var(--cafe-brand-weight) !important;
-  position: relative !important;
-  margin-left: 6px !important;
-  z-index: 2 !important;
-}
-
-/* 8) 确保不会遮挡菜单点击 */
-a[aria-label="Dashboard"]::before,
-a[aria-label="Dashboard"]::after,
-#jenkins-home-link::before,
-#jenkins-home-link::after {
-  pointer-events: none !important;
-}
+/* 5) 浏览器标题文本由 JS 改，这里不处理 */
