@@ -1,45 +1,33 @@
-/* ===== cafelabs-ci branding for current Jenkins DOM ===== */
+/* ===== cafelabs-ci precise override for Jenkins 2.541.x ===== */
 
-:root {
-  --brand-text: "cafelabs-ci";
-  --brand-color: #ffffff;
-}
-
-/* 1) 精准命中你截图里的 logo 链接容器 */
-a.app-jenkins-logo {
-  position: relative !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  text-decoration: none !important;
-}
-
-/* 2) 隐藏原 Jenkins 文本（你截图里的 span.jenkins-mobile-hide） */
+/* A. 精准替换左上角 Jenkins 文本 */
 a.app-jenkins-logo span.jenkins-mobile-hide {
-  font-size: 0 !important;
-  color: transparent !important;
-  width: 0 !important;
-  overflow: hidden !important;
-  display: inline-block !important;
+  display: none !important;
 }
 
-/* 3) 注入新品牌文字 */
+/* B. 在 logo 后面加 cafelabs-ci */
 a.app-jenkins-logo::after {
-  content: var(--brand-text) !important;
-  color: var(--brand-color) !important;
+  content: "cafelabs-ci" !important;
+  display: inline-block !important;
+  margin-left: 6px !important;
+  color: #ffffff !important;
   font-size: 28px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   letter-spacing: 0.2px !important;
   white-space: nowrap !important;
-  margin-left: 4px !important;
 }
 
-/* 4) logo 图标尺寸（可选） */
+/* C. 保持 logo 排版稳定 */
+a.app-jenkins-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+/* D. 保持头像图标可见 */
 #jenkins-head-icon {
   width: 26px !important;
   height: 26px !important;
   object-fit: contain !important;
 }
-
-/* 5) 浏览器标题文本由 JS 改，这里不处理 */
