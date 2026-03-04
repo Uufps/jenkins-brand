@@ -1,52 +1,79 @@
+/* ===== cafelabs-ci Jenkins Branding ===== */
+
+/* 0) 全局变量 */
 :root {
-  --cafe-brand: "cafelabs-ci";
+  --cafe-brand-name: "cafelabs-ci";
+  --cafe-brand-color: #ffffff;
 }
 
-/* 1) 浏览器页签标题在部分页面会被 JS 覆盖，这里先兜底 */
-title {
-  text-transform: none;
-}
-
-/* 2) 顶部 Jenkins 图标替换（不同版本选择器不同，做多选择器兼容） */
+/* 1) 左上角头像/logo 尺寸统一（你已成功替换图标可保留） */
 #jenkins-head-icon,
 .jenkins-logo,
 img[src*="jenkins-headshot"],
 img[src*="jenkins.png"] {
-  content: url("https://ci.cafelabs.com/static/jenkins-brand/logo.svg") !important;
   height: 28px !important;
-  width: auto !important;
+  width: 28px !important;
+  object-fit: contain !important;
 }
 
-/* 3) 顶部文字区域追加品牌名 */
+/* 2) 隐藏各种可能出现的 Jenkins 文本节点 */
+#jenkins-name-icon,
+.jenkins-app-bar__title,
+a[aria-label="Dashboard"] .jenkins-visually-hidden,
+a[href="/"] .jenkins-visually-hidden,
+a[href$="/"] .jenkins-visually-hidden {
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+/* 3) 在不同可能的容器后追加 cafelabs-ci 文本 */
 #jenkins-name-icon::after,
 .jenkins-app-bar__title::after,
-.page-header__title::after {
-  content: "cafelabs-ci" !important;
-  margin-left: 8px !important;
+a[aria-label="Dashboard"]::after,
+a[href="/"]::after,
+a[href$="/"]::after {
+  content: var(--cafe-brand-name) !important;
+  font-size: 22px !important;
+  line-height: 1 !important;
   font-weight: 700 !important;
+  color: var(--cafe-brand-color) !important;
+  margin-left: 8px !important;
   letter-spacing: 0.2px !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
 }
 
-/* 4) 隐藏可能出现的 Jenkins 文本字样（按版本可能不生效，属可选） */
-#jenkins-name-icon svg + span,
-.jenkins-app-bar__title span {
-  opacity: 0 !important;
-  width: 0 !important;
-  display: inline-block !important;
-  overflow: hidden !important;
+/* 4) 某些版本里 Jenkins 文本在 svg+span，直接隐藏 */
+a[aria-label="Dashboard"] svg + span,
+a[href="/"] svg + span,
+a[href$="/"] svg + span {
+  display: none !important;
 }
 
-/* 5) 登录页主标题（常见结构） */
-.login h1::after,
-#login h1::after {
-  content: "cafelabs-ci" !important;
-  display: inline-block !important;
-  margin-left: 8px !important;
+/* 5) 顶栏品牌区域间距微调 */
+a[aria-label="Dashboard"],
+a[href="/"],
+a[href$="/"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+/* 6) 登录页标题补充品牌 */
+#login h1,
+.login h1 {
+  font-size: 0 !important;
+}
+#login h1::after,
+.login h1::after {
+  content: var(--cafe-brand-name) !important;
+  font-size: 28px !important;
   font-weight: 700 !important;
+  color: #111 !important;
 }
 
-/* 6) 页脚弱化 Jenkins 字样（可按需删） */
-.page-footer,
-#page-footer {
-  opacity: 0.9;
+/* 7) 页脚轻微弱化（可删） */
+#page-footer,
+.page-footer {
+  opacity: 0.92 !important;
 }
